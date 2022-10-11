@@ -2,7 +2,6 @@ package console
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"os"
 	"os/signal"
@@ -100,30 +99,6 @@ func readline(mask bool) (string, error) {
 		return "", fmt.Errorf("got signal %v", sig)
 	}
 	return answer, err
-}
-
-//AskSite asks for a site
-func AskSite(def string) (string, error) {
-	if def != "" {
-		return def, nil
-	}
-	site, err := Ask("site")
-	if err != nil {
-		return "", err
-	}
-	if site == "" {
-		return "", errors.New("site cannot be empty")
-	}
-	return site, nil
-}
-
-//AskShield asks for shield id and allows empty
-func AskShield(def string) (string, error) {
-	if def != "" {
-		return def, nil
-	}
-	fmt.Println("leave shield id empty for all shields")
-	return AskOptions("shield id", def, false, false)
 }
 
 //AskString if current is empty, asks for prompt, stores the answer in target

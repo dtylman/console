@@ -9,14 +9,14 @@ import (
 )
 
 func TestToTable(t *testing.T) {
-	ToTable(os.Stdout, 1)
+	WriteTable(os.Stdout, 1)
 	address := gofakeit.Address()
-	ToTable(os.Stdout, address, "Name", "Value")
+	WriteTable(os.Stdout, address, "Name", "Value")
 	m := make(map[string]string)
 	for i := 0; i < 5; i++ {
 		m[gofakeit.FarmAnimal()] = gofakeit.FileExtension()
 	}
-	ToTable(os.Stdout, m, "Key", "Value")
+	WriteTable(os.Stdout, m, "Key", "Value")
 }
 
 func Test_convertMap(t *testing.T) {
@@ -34,4 +34,18 @@ func Test_convertMap(t *testing.T) {
 		assert.EqualValues(t, m2[k], m3[k])
 	}
 
+}
+
+func TestArray(t *testing.T) {
+	var cars []gofakeit.CarInfo
+	for i := 0; i < 10; i++ {
+		cars = append(cars, *gofakeit.Car())
+	}
+	WriteTable(os.Stdout, cars)
+
+	var cars1 []*gofakeit.CarInfo
+	for i := 0; i < 10; i++ {
+		cars1 = append(cars1, gofakeit.Car())
+	}
+	WriteTable(os.Stdout, cars1)
 }

@@ -17,6 +17,7 @@ func TestToTable(t *testing.T) {
 		m[gofakeit.FarmAnimal()] = gofakeit.FileExtension()
 	}
 	WriteTable(os.Stdout, m, "Key", "Value")
+	WriteTable(os.Stdout, []string{"one", "two", "three"}, "Number")
 }
 
 func Test_convertMap(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
-//WriteTable render the provided object as a table, object can be map, struct or array of struct(s)
+// WriteTable render the provided object as a table, object can be map, struct or array of struct(s)
 func WriteTable(w io.Writer, obj interface{}, header ...string) {
 	if isArray(obj) {
 		renderArray(w, obj, header)
@@ -53,7 +53,7 @@ func convertMap(obj interface{}) (map[string]interface{}, bool) {
 	return nil, false
 }
 
-//isArray returns true if obj is array
+// isArray returns true if obj is array
 func isArray(obj interface{}) bool {
 	v := reflect.ValueOf(obj)
 	if v.Kind() == reflect.Ptr {
@@ -79,9 +79,14 @@ func renderArray(w io.Writer, obj interface{}, header []string) {
 	for i := 0; i < arr.Len(); i++ {
 		item := arr.Index(i)
 		v := reflect.Indirect(item)
+
 		var row []string
-		for j := 0; j < v.NumField(); j++ {
-			row = append(row, fmt.Sprintf("%v", v.Field(j)))
+		if v.Kind() == reflect.Struct {
+			for j := 0; j < v.NumField(); j++ {
+				row = append(row, fmt.Sprintf("%v", v.Field(j)))
+			}
+		} else {
+			row = append(row, v.String())
 		}
 		table.Append(row)
 	}

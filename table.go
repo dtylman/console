@@ -11,7 +11,7 @@ import (
 )
 
 // WriteTable render the provided object as a table, object can be map, struct or array of struct(s)
-func WriteTable(w io.Writer, obj interface{}, header ...string) {
+func WriteTable(obj interface{}, header ...string) {
 	WriteTableTo(os.Stdout, obj, header...)
 }
 

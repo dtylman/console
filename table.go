@@ -3,6 +3,7 @@ package console
 import (
 	"fmt"
 	"io"
+	"os"
 	"reflect"
 
 	"github.com/fatih/structs"
@@ -11,6 +12,11 @@ import (
 
 // WriteTable render the provided object as a table, object can be map, struct or array of struct(s)
 func WriteTable(w io.Writer, obj interface{}, header ...string) {
+	WriteTableTo(os.Stdout, obj, header...)
+}
+
+// WriteTableTo render the provided object to writer as a table, object can be map, struct or array of struct(s)
+func WriteTableTo(w io.Writer, obj interface{}, header ...string) {
 	if isArray(obj) {
 		renderArray(w, obj, header)
 		return

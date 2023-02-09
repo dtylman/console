@@ -12,17 +12,17 @@ import (
 	"golang.org/x/term"
 )
 
-//Ask asks the user something
+// Ask asks the user something
 func Ask(prompt string) (string, error) {
 	return AskOptions(prompt, "", true, false)
 }
 
-//AskPassword asks a password
+// AskPassword asks a password
 func AskPassword(prompt string) (string, error) {
 	return AskOptions(prompt, "", true, true)
 }
 
-//AskOptions ...
+// AskOptions ...
 func AskOptions(prompt string, def string, required bool, mask bool) (string, error) {
 	for {
 		fmt.Print(prompt)
@@ -45,7 +45,7 @@ func AskOptions(prompt string, def string, required bool, mask bool) (string, er
 	}
 }
 
-//AskStringArray convert string array to string and asks
+// AskStringArray convert string array to string and asks
 func AskStringArray(prompt string, def []string, required bool) ([]string, error) {
 	value, err := AskOptions(prompt, strings.Join(def, ","), required, false)
 	if err != nil {
@@ -101,7 +101,7 @@ func readline(mask bool) (string, error) {
 	return answer, err
 }
 
-//AskString if current is empty, asks for prompt, stores the answer in target
+// AskString if current is empty, asks for prompt, stores the answer in target
 func AskString(prompt string, target *string, current string) error {
 	if current != "" {
 		*target = current
@@ -115,7 +115,7 @@ func AskString(prompt string, target *string, current string) error {
 	return nil
 }
 
-//AskBool asks for a boolean value
+// AskBool asks for a boolean value
 func AskBool(prompt string, target *bool, current bool) error {
 	hint := "(y/N)"
 	if current {
@@ -130,10 +130,11 @@ func AskBool(prompt string, target *bool, current bool) error {
 		if answer == "" {
 			if current {
 				fmt.Println("Yes.")
+				*target = true
 			} else {
 				fmt.Println("No.")
+				*target = false
 			}
-			target = &current
 			return nil
 		}
 		if answer == "y" || answer == "yes" {

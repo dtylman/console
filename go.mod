@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/brianvoe/gofakeit v3.18.0+incompatible // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

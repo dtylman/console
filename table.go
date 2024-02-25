@@ -43,6 +43,7 @@ func WriteTableTo(w io.Writer, obj interface{}, header ...string) {
 	table.Render()
 }
 
+// convertMap converts obj to map[string]interface{} if possible
 func convertMap(obj interface{}) (map[string]interface{}, bool) {
 	m, ok := obj.(map[string]interface{})
 	if ok {
@@ -73,6 +74,7 @@ func isArray(obj interface{}) bool {
 	return (v.Kind() == reflect.Slice || v.Kind() == reflect.Array)
 }
 
+// renderArray renders array of struct(s) as table
 func renderArray(w io.Writer, obj interface{}, header []string) {
 	table := tablewriter.NewWriter(w)
 	arr := reflect.ValueOf(obj)
@@ -100,6 +102,7 @@ func renderArray(w io.Writer, obj interface{}, header []string) {
 	table.Render()
 }
 
+// getArrayHeader gets the fields of the struct in the array as header
 func getArrayHeader(val reflect.Value) []string {
 	var header []string
 

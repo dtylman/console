@@ -9,15 +9,15 @@ import (
 )
 
 func TestToTable(t *testing.T) {
-	WriteTable(os.Stdout, 1)
+	WriteTableTo(os.Stdout, 1)
 	address := gofakeit.Address()
-	WriteTable(os.Stdout, address, "Name", "Value")
+	WriteTableTo(os.Stdout, address, "Name", "Value")
 	m := make(map[string]string)
 	for i := 0; i < 5; i++ {
 		m[gofakeit.FarmAnimal()] = gofakeit.FileExtension()
 	}
-	WriteTable(os.Stdout, m, "Key", "Value")
-	WriteTable(os.Stdout, []string{"one", "two", "three"}, "Number")
+	WriteTableTo(os.Stdout, m, "Key", "Value")
+	WriteTableTo(os.Stdout, []string{"one", "two", "three"}, "Number")
 }
 
 func Test_convertMap(t *testing.T) {
@@ -42,11 +42,11 @@ func TestArray(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		cars = append(cars, *gofakeit.Car())
 	}
-	WriteTable(os.Stdout, cars)
+	WriteTableTo(os.Stdout, cars)
 
 	var cars1 []*gofakeit.CarInfo
 	for i := 0; i < 10; i++ {
 		cars1 = append(cars1, gofakeit.Car())
 	}
-	WriteTable(os.Stdout, cars1)
+	WriteTableTo(os.Stdout, cars1)
 }

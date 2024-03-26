@@ -50,3 +50,8 @@ func TestArray(t *testing.T) {
 	}
 	WriteTableTo(os.Stdout, cars1)
 }
+
+func TestStruct(t *testing.T) {
+	WriteTable(gofakeit.Car())
+	WriteTable(gofakeit.Person())
+}

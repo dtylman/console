@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"reflect"
+	"sort"
 
 	"github.com/fatih/structs"
 	"github.com/olekukonko/tablewriter"
@@ -37,9 +38,15 @@ func WriteTableTo(w io.Writer, obj interface{}, header ...string) {
 	if header != nil {
 		table.SetHeader(header)
 	}
+	rows := [][]string{}
 	for k, v := range m {
-		table.Append([]string{k, fmt.Sprintf("%v", v)})
+		rows = append(rows, []string{k, fmt.Sprintf("%v", v)})
 	}
+	sort.Slice(rows, func(i, j int) bool {
+		return rows[i][0] < rows[j][0]
+	})
+
+	table.AppendBulk(rows)
 	table.Render()
 }
 

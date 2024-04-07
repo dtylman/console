@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 	"unicode"
 	"unicode/utf8"
@@ -146,5 +147,23 @@ func AskBool(prompt string, target *bool, current bool) error {
 		} else {
 			fmt.Println("Please answer y or n")
 		}
+	}
+}
+
+// AskInt asks for an integer value
+func AskInt(prompt string, target *int, current int) error {
+	for {
+		answer, err := AskOptions(prompt, fmt.Sprintf("%d", current), true, false)
+		if err != nil {
+			return err
+		}
+		var value int
+		value, err = strconv.Atoi(answer)
+		if err != nil {
+			fmt.Println("Please enter a valid integer")
+			continue
+		}
+		*target = value
+		return nil
 	}
 }

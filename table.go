@@ -36,7 +36,8 @@ func WriteTableTo(w io.Writer, obj interface{}, header ...string) {
 	}
 	table := tablewriter.NewWriter(w)
 	if header != nil {
-		table.SetHeader(header)
+		table.Header(header)
+
 	}
 	rows := [][]string{}
 	for k, v := range m {
@@ -46,7 +47,7 @@ func WriteTableTo(w io.Writer, obj interface{}, header ...string) {
 		return rows[i][0] < rows[j][0]
 	})
 
-	table.AppendBulk(rows)
+	table.Append(rows)
 	table.Render()
 }
 
@@ -86,9 +87,9 @@ func renderArray(w io.Writer, obj interface{}, header []string) {
 	table := tablewriter.NewWriter(w)
 	arr := reflect.ValueOf(obj)
 	if header == nil {
-		table.SetHeader(getArrayHeader(arr))
+		table.Header(getArrayHeader(arr))
 	} else {
-		table.SetHeader(header)
+		table.Header(header)
 	}
 
 	for i := 0; i < arr.Len(); i++ {
